@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Scoreboard</title>
+  <link rel="stylesheet" href="assets/styles/scoreboard.css" />
+</head>
+<body>
+<div class="scoreboard-scale-wrapper">
+  <div class="scoreboard-container">
+    <div class="scoreboard">
+      <div class="team">
+        <span class="player-name" id="player1Name">Player 1</span>
+        <img class="player-icon" id="player1Icon" src="assets/character_images/Full/default.png" />
+      </div>
+      <div>
+        <span class="score" id="displayTeam1">0</span>
+        <img id="brawl" src="assets/Source_images/1.png" alt="">
+        <span class="score" id="displayTeam2">0</span>
+      </div>
+      <div class="team">
+        <img class="player-icon" id="player2Icon" src="assets/character_images/Full/default.png" />
+        <span class="player-name" id="player2Name">Player 2</span>
+      </div>
+    </div>
+
+    <div class="tournament-name" id="tournamentName">TOURNAMENT</div>
+  </div>
+</div>
+  <script>
+    let latestData = null;
+
+    function updateImages(style, character1, character2) {
+      const folder = `assets/character_images/${style}`;
+      document.getElementById("player1Icon").src = character1 ? `${folder}/${character1}.png` : `${folder}/default.png`;
+      document.getElementById("player2Icon").src = character2 ? `${folder}/${character2}.png` : `${folder}/default.png`;
+    }
+
+    function connectWebSocket() {
+      const ws = new WebSocket("wss://nifty-trapezoidal-pot.glitch.me");
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        latestData = data;
+
+        document.getElementById("displayTeam1").innerText = data.team1;
+        document.getElementById("displayTeam2").innerText = data.team2;
+        document.getElementById("player1Name").innerText = data.player1;
+        document.getElementById("player2Name").innerText = data.player2;
+        document.getElementById("tournamentName").innerText = data.tournament;
+
+        updateImages(data.style, data.character1, data.character2);
+      };
+
+      ws.onerror = (error) => console.error("WebSocket Error:", error);
+      ws.onclose = () => {
+        console.log("WebSocket closed. Reconnecting...");
+        setTimeout(connectWebSocket, 3000);
+      };
+    }
+
+    connectWebSocket();
+  </script>
+</body>
+</html>

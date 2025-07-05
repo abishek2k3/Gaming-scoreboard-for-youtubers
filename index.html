@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="./assets/scoreboard.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My YouTube Channel</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="hero">
+    <div class="overlay" id="content">
+      <!-- Default view inserted by JavaScript -->
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Abishek. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function showMainMenu() {
+      const content = document.getElementById("content");
+      content.innerHTML = `
+        <h1>Welcome to My Channel</h1>
+        <p>Choose Your Scoreboard</p>
+        <div class="buttons">
+          <button onclick="showOptions('1v1')">Scoreboard 1v1</button>
+          <button onclick="showOptions('2v2')">Scoreboard 2v2</button>
+        </div>
+      `;
+      history.pushState({ view: "main" }, "", "#main");
+    }
+
+    function showOptions(mode) {
+      const content = document.getElementById("content");
+
+      let adminPath = "";
+      let scoreboardPath = "";
+
+      if (mode === "1v1") {
+        adminPath = "1v1/admin.html";
+        scoreboardPath = "1v1/scoreboard.html";
+      } else if (mode === "2v2") {
+        adminPath = "2v2/admin.html";
+        scoreboardPath = "2v2/scoreboard.html";
+      }
+
+      content.innerHTML = `
+        <h1>${mode.toUpperCase()} Mode</h1>
+        <p>Select an option:</p>
+        <div class="buttons">
+          <button onclick="navigateTo('${adminPath}')">Admin</button>
+          <button onclick="navigateTo('${scoreboardPath}')">Scoreboard</button>
+        </div>
+        <div class="back">
+          <button onclick="showMainMenu()">Back</button>
+        </div>
+      `;
+
+      history.pushState({ view: mode }, "", `#${mode}`);
+    }
+
+    function navigateTo(path) {
+      // Set hash to simulate navigation, then actual redirect happens on hashchange
+      location.hash = `#${path}`;
+    }
+
+    // Handle browser back/forward buttons
+    window.addEventListener("popstate", () => {
+      const hash = location.hash.slice(1); // remove "#"
+      if (!hash || hash === "main") {
+        showMainMenu();
+      } else if (hash === "1v1" || hash === "2v2") {
+        showOptions(hash);
+      }
+    });
+
+    // Handle hash redirect to admin/scoreboard pages
+    window.addEventListener("hashchange", () => {
+      const hash = location.hash.slice(1);
+      if (hash.endsWith(".html")) {
+        location.href = hash;
+      }
+    });
+
+    // Load default view on page load
+    window.addEventListener("load", () => {
+      const hash = location.hash.slice(1);
+      if (!hash || hash === "main") {
+        showMainMenu();
+      } else if (hash === "1v1" || hash === "2v2") {
+        showOptions(hash);
+      } else if (hash.endsWith(".html")) {
+        location.href = hash;
+      }
+    });
+  </script>
+</body>
+</html>

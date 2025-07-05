@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourney Admin</title>
+    <link rel="stylesheet" href="assets/styles/admin.css">
+    
+    <!-- Choices.js CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css">
+</head>
+<body>
+<div class="wrap">
+    <div class="scoreboard-border">
+    <div class="scoreboard-container">
+        <h2>Gaming Scoreboard</h2>
+
+        <label for="imageStyle" class="style">Character Image Style:</label>
+        <select id="imageStyle">
+            <option value="full">Full</option>
+            <option value="face">Face</option>
+        </select>
+        
+        <div class="scoreboard">
+            <div class="team">
+                <input type="text" id="player1Name" placeholder="Player 1" value="">
+                <!-- Inside Player 1's .character-display -->
+                <div class="character-display">
+                    <img id="player1Image" class="character-image" src="assets/character_images/full/default.png" alt="Player 1 Character">
+                </div>
+
+                <div class="score-controls">
+                    <button class="score-btn" onclick="changeScore('team1', -1)">-</button>
+                    <input type="number" id="team1Score" value="0">
+                    <button class="score-btn" onclick="changeScore('team1', 1)">+</button>
+                </div>
+
+                <!-- Character select with search functionality -->
+                <select id="player1Character" onchange="updateCharacterImage('player1Character', 'player1Image')">
+                    <option value="">Select</option>
+                    <option value="ada">Ada</option>
+                    <option value="arcadia">Arcadia</option>
+                    <option value="artemis">Artemis</option>
+                    <option value="asuri">Asuri</option>
+                    <option value="azoth">Azoth</option>
+                    <option value="barraza">Barraza</option>
+                    <option value="bodvar">Bödvar</option>
+                    <option value="brynn">Brynn</option>
+                    <option value="caspian">Caspian</option>
+                    <option value="cassidy">Cassidy</option>
+                    <option value="cross">Cross</option>
+                    <option value="diana">Diana</option>
+                    <option value="dusk">Dusk</option>
+                    <option value="ember">Ember</option>
+                    <option value="ezio">Ezio</option>
+                    <option value="fait">Fait</option>
+                    <option value="gnash">Gnash</option>
+                    <option value="hattori">Hattori</option>
+                    <option value="imugi">Imugi</option>
+                    <option value="isaiah">Isaiah</option>
+                    <option value="jaeyun">Jaeyun</option>
+                    <option value="jake">Jake</option>
+                    <option value="jhala">Jhala</option>
+                    <option value="jiro">Jiro</option>
+                    <option value="kaya">Kaya</option>
+                    <option value="koji">Koji</option>
+                    <option value="kor">Kor</option>
+                    <option value="linfei">Lin Fei</option>
+                    <option value="loki">Loki</option>
+                    <option value="lucien">Lucien</option>
+                    <option value="magyar">Magyar</option>
+                    <option value="mako">Mako</option>
+                    <option value="mirage">Mirage</option>
+                    <option value="mordex">Mordex</option>
+                    <option value="munin">Munin</option>
+                    <option value="queennai">Queen Nai</option>
+                    <option value="nix">Nix</option>
+                    <option value="onyx">Onyx</option>
+                    <option value="orion">Orion</option>
+                    <option value="petra">Petra</option>
+                    <option value="priya">Priya</option>
+                    <option value="ragnir">Ragnir</option>
+                    <option value="rayman">Rayman</option>
+                    <option value="redraptor">Red Raptor</option>
+                    <option value="reno">Reno</option>
+                    <option value="sirroland">Sir Roland</option>
+                    <option value="scarlet">Scarlet</option>
+                    <option value="sentinel">Sentinel</option>
+                    <option value="seven">Seven</option>
+                    <option value="sidra">Sidra</option>
+                    <option value="tailung">Tai Lung</option>
+                    <option value="teros">Teros</option>
+                    <option value="tezca">Tezca</option>
+                    <option value="thatch">Thatch</option>
+                    <option value="thea">Thea</option>
+                    <option value="thor">Thor</option>
+                    <option value="ulgrim">Ulgrim</option>
+                    <option value="val">Val</option>
+                    <option value="vector">Vector</option>
+                    <option value="volkov">Volkov</option>
+                    <option value="vivi">Vivi</option>
+                    <option value="lordvraxx">Lord Vraxx</option>
+                    <option value="wushang">Wu Shang</option>
+                    <option value="xull">Xull</option>
+                    <option value="xavierwoods">Xavier Woods</option>
+                    <option value="yumiko">Yumiko</option>
+                    <option value="zariel">Zariel</option>
+                    <option value="kingzuva">King Zuva</option>
+                </select>
+            </div>
+
+            <span class="vs">VS</span>
+
+            <div class="team">
+                <input type="text" id="player2Name" placeholder="Player 2" value="">
+                <!-- Inside Player 2's .character-display -->
+                <div class="character-display">
+                    <img id="player2Image" class="character-image" src="assets/character_images/full/default.png" alt="Player 2 Character">
+                </div>
+
+                <div class="score-controls">
+                    <button class="score-btn" onclick="changeScore('team2', -1)">-</button>
+                    <input type="number" id="team2Score" value="0">
+                    <button class="score-btn" onclick="changeScore('team2', 1)">+</button>
+                </div>
+
+                <!-- Character select with search functionality -->
+                <select id="player2Character" onchange="updateCharacterImage('player2Character', 'player2Image')">
+                    <option value="">Select</option>
+                    <option value="ada">Ada</option>
+                    <option value="arcadia">Arcadia</option>
+                    <option value="artemis">Artemis</option>
+                    <option value="asuri">Asuri</option>
+                    <option value="azoth">Azoth</option>
+                    <option value="barraza">Barraza</option>
+                    <option value="bodvar">Bödvar</option>
+                    <option value="brynn">Brynn</option>
+                    <option value="caspian">Caspian</option>
+                    <option value="cassidy">Cassidy</option>
+                    <option value="cross">Cross</option>
+                    <option value="diana">Diana</option>
+                    <option value="dusk">Dusk</option>
+                    <option value="ember">Ember</option>
+                    <option value="ezio">Ezio</option>
+                    <option value="fait">Fait</option>
+                    <option value="gnash">Gnash</option>
+                    <option value="hattori">Hattori</option>
+                    <option value="imugi">Imugi</option>
+                    <option value="isaiah">Isaiah</option>
+                    <option value="jaeyun">Jaeyun</option>
+                    <option value="jake">Jake</option>
+                    <option value="jhala">Jhala</option>
+                    <option value="jiro">Jiro</option>
+                    <option value="kaya">Kaya</option>
+                    <option value="koji">Koji</option>
+                    <option value="kor">Kor</option>
+                    <option value="linfei">Lin Fei</option>
+                    <option value="loki">Loki</option>
+                    <option value="lucien">Lucien</option>
+                    <option value="magyar">Magyar</option>
+                    <option value="mako">Mako</option>
+                    <option value="mirage">Mirage</option>
+                    <option value="mordex">Mordex</option>
+                    <option value="munin">Munin</option>
+                    <option value="queennai">Queen Nai</option>
+                    <option value="nix">Nix</option>
+                    <option value="onyx">Onyx</option>
+                    <option value="orion">Orion</option>
+                    <option value="petra">Petra</option>
+                    <option value="priya">Priya</option>
+                    <option value="ragnir">Ragnir</option>
+                    <option value="rayman">Rayman</option>
+                    <option value="redraptor">Red Raptor</option>
+                    <option value="reno">Reno</option>
+                    <option value="sirroland">Sir Roland</option>
+                    <option value="scarlet">Scarlet</option>
+                    <option value="sentinel">Sentinel</option>
+                    <option value="seven">Seven</option>
+                    <option value="sidra">Sidra</option>
+                    <option value="tailung">Tai Lung</option>
+                    <option value="teros">Teros</option>
+                    <option value="tezca">Tezca</option>
+                    <option value="thatch">Thatch</option>
+                    <option value="thea">Thea</option>
+                    <option value="thor">Thor</option>
+                    <option value="ulgrim">Ulgrim</option>
+                    <option value="val">Val</option>
+                    <option value="vector">Vector</option>
+                    <option value="volkov">Volkov</option>
+                    <option value="vivi">Vivi</option>
+                    <option value="lordvraxx">Lord Vraxx</option>
+                    <option value="wushang">Wu Shang</option>
+                    <option value="xull">Xull</option>
+                    <option value="xavierwoods">Xavier Woods</option>
+                    <option value="yumiko">Yumiko</option>
+                    <option value="zariel">Zariel</option>
+                    <option value="kingzuva">King Zuva</option>
+                </select>
+            </div>
+        </div>
+        
+        <select id="tournamentName">
+            <option>QUALIFIER 1</option>
+            <option>QUALIFIER 2</option>
+            <option>QUALIFIER 3</option>
+            <option>LOSERS BRACKET</option>
+            <option>QUARTER-FINALS</option>
+            <option>SEMI-FINALS</option>
+            <option>GRAND-FINALS</option>
+        </select>
+        <button class="reset-btn" onclick="resetForm()">Reset</button>
+        <button class="update-btn" onclick="updateScore()">Update</button>
+    </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script>
+        // Initialize Choices.js for player character selects
+        const player1CharacterSelect = new Choices('#player1Character', {
+            searchEnabled: true, // Enables searching for the character
+            itemSelectText: '',  // Removes the "select" placeholder
+        });
+
+        const player2CharacterSelect = new Choices('#player2Character', {
+            searchEnabled: true, // Enables searching for the character
+            itemSelectText: '',  // Removes the "select" placeholder
+        });
+
+        function updateScore() {
+            const ws = new WebSocket("wss://nifty-trapezoidal-pot.glitch.me");
+    
+            ws.onopen = () => {
+                const player1 = document.getElementById("player1Name").value;
+                const player2 = document.getElementById("player2Name").value;
+                const team1 = document.getElementById("team1Score").value;
+                const team2 = document.getElementById("team2Score").value;
+                const character1 = document.getElementById("player1Character").value;
+                const character2 = document.getElementById("player2Character").value;
+                const tournament = document.getElementById("tournamentName").value;
+                const style = document.getElementById("imageStyle").value;
+    
+                ws.send(JSON.stringify({ player1, player2, team1, team2, character1, character2, tournament, style }));
+                ws.close();
+            };
+    
+            ws.onerror = (error) => console.error("WebSocket Error:", error);
+        }
+
+        function changeScore(team, delta) {
+            const input = document.getElementById(team + "Score");
+            let score = parseInt(input.value) || 0;
+            score += delta;
+            if (score < 0) score = 0;
+            input.value = score;
+        }
+
+        function updateCharacterImage(selectId, imageId) {
+            const character = document.getElementById(selectId).value || "default";
+            const style = document.getElementById("imageStyle").value;
+            const imagePath = `assets/character_images/${style}/${character}.png`;
+            document.getElementById(imageId).src = imagePath;
+        }
+
+        document.getElementById("imageStyle").addEventListener("change", () => {
+            updateCharacterImage("player1Character", "player1Image");
+            updateCharacterImage("player2Character", "player2Image");
+        });
+        function resetForm() {
+        document.getElementById("player1Name").value = "";
+        document.getElementById("player2Name").value = "";
+        document.getElementById("team1Score").value = 0;
+        document.getElementById("team2Score").value = 0;
+        document.getElementById("tournamentName").selectedIndex = 0;
+        document.getElementById("imageStyle").value = "full";
+
+        player1CharacterSelect.setChoiceByValue("");
+        player2CharacterSelect.setChoiceByValue("");
+
+        updateCharacterImage("player1Character", "player1Image");
+        updateCharacterImage("player2Character", "player2Image");
+    }
+
+
+    </script>
+  <footer>
+    <p>&copy; 2025 Abishek. All rights reserved.</p>
+  </footer>
+</body>
+</html>
